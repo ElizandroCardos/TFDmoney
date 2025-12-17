@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="google-adsense-account" content="ca-pub-5455262072299171">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rede Social de Ganhos</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5455262072299171" crossorigin="anonymous"></script>
+
+<!-- ================== CSS ================== -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; min-height: 100vh; }
+.top-bar { background: linear-gradient(90deg, #4267B2, #365899); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+.top-bar h1 { font-size: 28px; font-weight: 700; }
+.balance { font-weight: bold; font-size: 16px; }
+.nav { display: flex; gap: 15px; flex-wrap: wrap; }
+.nav a { color: white; text-decoration: none; padding: 8px 12px; border-radius: 20px; transition: background 0.3s; }
+.nav a.active { background: rgba(255,255,255,0.2); }
+.nav a:hover { background: rgba(255,255,255,0.1); }
+.container { display: flex; max-width: 1200px; margin: 20px auto; padding: 0 10px; }
+.sidebar { width: 280px; padding: 20px; background: white; border-radius: 12px; margin-right: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.feed { flex: 1; }
+.post { background: white; margin-bottom: 20px; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s; }
+.post:hover { transform: translateY(-2px); }
+.post img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+.ad-slot { margin: 20px 0; text-align: center; background: #f8f9fa; padding: 20px; border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+.btn { background: linear-gradient(90deg, #4267B2, #365899); color: white; border: none; padding: 12px 18px; border-radius: 25px; cursor: pointer; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
+.btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.btn:disabled { background: #ccc; cursor: not-allowed; }
+.hidden { display: none; }
+.progress { height: 12px; background: #e9ecef; border-radius: 6px; overflow: hidden; margin-top: 10px; }
+.progress i { display: block; height: 100%; background: linear-gradient(90deg, #28a745, #20c997); width: 0%; transition: width 0.1s; }
+.note { font-size: 12px; color: #6c757d; }
+.alert { background: #fff3cd; color: #856404; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffeaa7; }
+.checkbox { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.stats { display: flex; justify-content: space-around; margin-top: 10px; }
+.stats div { text-align: center; }
+.emoji { font-size: 20px; }
+@media (max-width: 768px) {
+  .top-bar { flex-direction: column; gap: 10px; }
+  .nav { justify-content: center; }
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; margin-right: 0; margin-bottom: 20px; }
+  .post { padding: 15px; }
+  .btn { padding: 10px 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================== TOP BAR ================== -->
+<div class="top-bar">
+  <h1>🔥 GITHUBMONEY</h1>
+  <div class="balance" id="balanceText">Saldo: 0 Kz</div>
+  <div class="nav">
+    <a href="#" id="feedTab" class="active" onclick="showTab('feed')">📱 Feed</a>
+    <a href="#" id="videosTab" onclick="showTab('videos')">🎥 Vídeos</a>
+    <a href="#" id="adsTab" onclick="showTab('ads')">💰 Anúncios</a>
+    <a href="#" id="profileTab" onclick="showTab('profile')">👤 Perfil</a>
+    <a href="#" id="logoutBtn" onclick="logout()">🚪 Sair</a>
+  </div>
+</div>
+
+<!-- ================== LOGIN ================== -->
+<div id="loginCard" class="container">
+  <div class="post" style="max-width: 400px; margin: 100px auto;">
+    <h2>🚀 Entrar / Criar Conta</h2>
+    <div class="alert">
+      <strong>⚠️ Alerta:</strong> Por uma questão de organização, a empresa avisa aos seus clientes a nunca terminarem a sessão das suas contas após iniciarem sessão, pois assim perderão todos os vossos dados.
+    </div>
+    <input id="usernameInput" placeholder="Nome de usuário (ex: joao123)" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+    <div class="checkbox">
+      <input type="checkbox" id="termsCheckbox">
+      <label for="termsCheckbox">Aceito os termos e condições</label>
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button class="btn" id="loginBtn">Entrar</button>
+      <button class="btn" id="registerBtn" style="background: linear-gradient(90deg, #42b883, #34d399);">Criar Conta</button>
+    </div>
+    <p class="note">💡 Use ?ref=usuario para ganhar bônus por indicações!</p>
+  </div>
+</div>
+
+<!-- ================== MAIN CONTENT ================== -->
+<div id="mainContent" class="hidden container">
+  <div class="sidebar">
+    <h3>📊 Menu</h3>
+    <p>Saldo Atual: <b id="sidebarBalance">0 Kz</b></p>
+    <p>Falta para Saque: <b id="toWithdraw">300000 Kz</b></p>
+    <div class="stats">
+      <div><span class="emoji">👥</span><br>Referências: <b id="refCount">0</b></div>
+      <div><span class="emoji">📈</span><br>Anúncios Hoje: <b id="adsToday">0</b></div>
+    </div>
+    <button class="btn" onclick="showTab('profile')">Ver Perfil Completo</button>
+  </div>
+  <div class="feed">
+    <!-- FEED TAB -->
+    <div id="feedContent">
+      <div class="post">
+        <h3>🌟 Post Incrível!</h3>
+        <img src="https://via.placeholder.com/600x300?text=Imagem+do+Post" alt="Post Image">
+        <p>Conteúdo exclusivo! Para desbloquear mais, assista a um anúncio e ganhe 5.000 Kz. 💸</p>
+        <button class="btn" onclick="watchAd('feed1')">🎬 Assistir Anúncio (+5000 Kz)</button>
+        <div id="feed1-progress" class="progress hidden"><i></i></div>
+      </div>
+      <div class="post">
+        <h3>🚀 Dica do Dia</h3>
+        <p>Ganhe dinheiro facilmente assistindo anúncios. Compartilhe seu link e receba bônus! 🔗</p>
+        <button class="btn" onclick="watchAd('feed2')">🎬 Assistir Anúncio (+5000 Kz)</button>
+        <div id="feed2-progress" class="progress hidden"><i></i></div>
+      </div>
+    </div>
+    <!-- VIDEOS TAB -->
+    <div id="videosContent" class="hidden">
+      <div class="post">
+        <h3>🎥 Vídeo Motivacional</h3>
+        <img src="https://via.placeholder.com/600x300?text=Video+Thumbnail" alt="Video">
+        <p>Assista e ganhe! Cada vídeo vale 5.000 Kz. 📺</p>
+        <button class="btn" onclick="watchAd('video1')">▶️ Assistir Vídeo (+5000 Kz)</button>
+        <div id="video1-progress" class="progress hidden"><i></i></div>
+      </div>
+    </div>
+    <!-- ADS TAB -->
+    <div id="adsContent" class="hidden">
+      <div class="ad-slot">
+        <!-- BLOCO DE ANÚNCIO REAL (substitua SEU_SLOT pelo slot do Google) -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5455262072299171"
+             data-ad-slot="SEU_SLOT"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        <!-- SIMULAÇÃO se anúncio não carregar -->
+        <div id="ad-placeholder" class="hidden">📢 ANÚNCIO SIMULADO (hospede online para reais)</div>
+        <button class="btn" onclick="watchAd('ads1')">💰 Assistir Anúncio (+5000 Kz)</button>
+        <div id="ads1-progress" class="progress hidden"><i></i></div>
+      </div>
+    </div>
+    <!-- PROFILE TAB -->
+    <div id="profileContent" class="hidden">
+      <div class="post">
+        <h3>👤 Seu Perfil</h3>
+        <p>Saldo Total: <b id="profile-balance">0 Kz</b></p>
+        <p>Link de Divulgação: <input id="refLink" readonly style="width: 100%; padding: 8px; border-radius: 8px;"></p>
+        <p>Referências: <div id="refList">Nenhuma ainda. 🔄</div></p>
+        <h4>💳 Saque</h4>
+        <input id="iban" placeholder="IBAN / Conta Bancária" style="width: 100%; padding: 8px; border-radius: 8px; margin-bottom: 10px;">
+        <input id="ownerName" placeholder="Nome do Titular" style="width: 100%; padding: 8px; border-radius: 8px;">
+        <button class="btn" id="withdrawBtn">Solicitar Saque</button>
+        <p id="withdrawMsg" class="note"></p>
+        <p>Histórico: <div id="withdrawHistory">Nenhum ainda. 📋</div></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== JAVASCRIPT ================== -->
+<script>
+const STORAGE_USERS = 'ad_site_users_v4';
+const STORAGE_CURRENT = 'ad_site_current_v4';
+const AD_REWARD = 5000;
+const REF_REWARD = 10000;
+const WITHDRAW_MIN = 300000;
+const DAILY_LIMIT = 50;
+
+document.getElementById('loginBtn').addEventListener('click', () => login(false));
+document.getElementById('registerBtn').addEventListener('click', () => login(true));
+document.getElementById('withdrawBtn').addEventListener('click', requestWithdraw);
+
+init();
+
+function init() { renderLoginIfNeeded(); }
+
+function getUsers() { return JSON.parse(localStorage.getItem(STORAGE_USERS) || '{}'); }
+function saveUsers(u) { localStorage.setItem(STORAGE_USERS, JSON.stringify(u)); }
+function getCurrent() { return JSON.parse(localStorage.getItem(STORAGE_CURRENT) || 'null'); }
+function setCurrent(username) { localStorage.setItem(STORAGE_CURRENT, JSON.stringify(username)); }
+function clearCurrent() { localStorage.removeItem(STORAGE_CURRENT); }
+
+function renderLoginIfNeeded() {
+  const cur = getCurrent();
+  if (cur) { showMain(); loadUserToUI(cur); document.getElementById('logoutBtn').classList.add('hidden'); } else { showLogin(); }
+}
+
+function login(isRegister) {
+  const name = document.getElementById('usernameInput').value.trim();
+  const termsAccepted = document.getElementById('termsCheckbox').checked;
+  if (!name) { alert('⚠️ Informe um nome de usuário.'); return; }
+  if (!termsAccepted) { alert('⚠️ Você deve aceitar os termos para continuar.'); return; }
+  const users = getUsers();
+  const queryRef = getQueryParam('ref');
+  if (isRegister) {
+    if (users[name]) { alert('❌ Nome já existe. Escolha outro.'); return; }
+    users[name] = { username: name, balance: 0, referrals: [], referredBy: queryRef, withdraws: [], adsWatchedToday: 0, lastAdDate: new Date().toDateString() };
+    if (queryRef && users[queryRef] && queryRef !== name) {
+      users[queryRef].balance += REF_REWARD;
+      users[queryRef].referrals.push({ who: name, at: new Date().toISOString(), amount: REF_REWARD });
+      alert('✅ Cadastro feito! Seu referidor ganhou ' + formatKz(REF_REWARD) + '.');
+    } else { alert('✅ Cadastro feito! Bem-vindo!'); }
+    saveUsers(users);
+    setCurrent(name);
+    showMain();
+    loadUserToUI(name);
+    document.getElementById('logoutBtn').classList.add('hidden');
+  } else {
+    if (!users[name]) { alert('❌ Usuário não encontrado.'); return; }
+    setCurrent(name);
+    showMain();
+    loadUserToUI(name);
+    document.getElementById('logoutBtn').classList.add('hidden');
+  }
+}
+
+function logout() { clearCurrent(); location.href = location.pathname; }
+
+function loadUserToUI(username) {
+  const users = getUsers();
+  const u = users[username];
+  if (!u) return;
+  const balance = u.balance || 0;
+  document.getElementById('balanceText').innerText = 'Saldo: ' + formatKz(balance);
+  document.getElementById('sidebarBalance').innerText = formatKz(balance);
+  document.getElementById('profile-balance').innerText = formatKz(balance);
+  const need = Math.max(0, WITHDRAW_MIN - balance);
+  document.getElementById('toWithdraw').innerText = formatKz(need);
+  document.getElementById('refCount').innerText = u.referrals.length;
+  document.getElementById('adsToday').innerText = u.adsWatchedToday || 0;
+  document.getElementById('refLink').value = location.origin + location.pathname + '?ref=' + encodeURIComponent(username);
+  document.getElementById('refList').innerHTML = u.referrals.length ? u.referrals.map(r => '<div>👤 ' + r.who + ' (+' + formatKz(r.amount) + ')</div>').join('') : 'Nenhuma. 🔄';
+  document.getElementById('withdrawHistory').innerHTML = u.withdraws.length ? u.withdraws.map(w => '<div>💰 ' + formatKz(w.amount) + ' - ' + w.status + '</div>').join('') : 'Nenhum. 📋';
+}
+
+function showLogin() { document.getElementById('loginCard').classList.remove('hidden'); document.getElementById('mainContent').classList.add('hidden'); }
+function showMain() { document.getElementById('loginCard').classList.add('hidden'); document.getElementById('mainContent').classList.remove('hidden'); showTab('feed'); }
+
+function showTab(tab) {
+  ['feed', 'videos', 'ads', 'profile'].forEach(t => {
+    document.getElementById(t + 'Content').classList.add('hidden');
+    document.getElementById(t + 'Tab').classList.remove('active');
+  });
+  document.getElementById(tab + 'Content').classList.remove('hidden');
+  document.getElementById(tab + 'Tab').classList.add('active');
+}
+
+function getQueryParam(name) { const params = new URLSearchParams(location.search); return params.get(name); }
+function formatKz(n) { return (n || 0).toLocaleString('pt-PT') + ' Kz'; }
+
+function watchAd(adId) {
+  const cur = getCurrent();
+  if (!cur) { alert('⚠️ Faça login primeiro.'); return; }
+  const users = getUsers();
+  const u = users[cur];
+  const today = new Date().toDateString();
+  if (u.lastAdDate !== today) { u.adsWatchedToday = 0; u.lastAdDate = today; }
+  if (u.adsWatchedToday >= DAILY_LIMIT) { alert('🚫 Limite diário atingido (' + DAILY_LIMIT + ' anúncios). Volte amanhã!'); return; }
+  const progressEl = document.getElementById(adId + '-progress');
+  progressEl.classList.remove('hidden');
+  const bar = progressEl.querySelector('i');
+  let t = 0;
+  const interval = setInterval(() => {
+    t += 100;
+    bar.style.width = Math.min(100, (t / 5000) * 100) + '%';
+    if (t >= 5000) {
+      clearInterval(interval);
+      progressEl.classList.add('hidden');
+      bar.style.width = '0%';
+      u.balance += AD_REWARD;
+      u.adsWatchedToday++;
+      saveUsers(users);
+      loadUserToUI(cur);
+      alert('🎉 Parabéns! Você ganhou ' + formatKz(AD_REWARD) + ' assistindo ao anúncio!');
+    }
+  }, 100);
+}
+
+function requestWithdraw() {
+  const cur = getCurrent();
+  if (!cur) return;
+  const users = getUsers();
+  const u = users[cur];
+  if (u.balance < WITHDRAW_MIN) { alert('❌ Saldo insuficiente para saque.'); return; }
+  const iban = document.getElementById('iban').value.trim();
+  const owner = document.getElementById('ownerName').value.trim();
+  if (!iban || !owner) { alert('⚠️ Preencha IBAN e nome do titular.'); return; }
+  u.withdraws.push({ amount: u.balance, status: 'pending', date: new Date().toISOString() });
+  u.balance = 0;
+  saveUsers(users);
+  loadUserToUI(cur);
+  document.getElementById('withdrawMsg').innerText = '✅ Saque solicitado com sucesso! Será processado em ~30 dias.';
+}
+</script>
+
+</body>
+</html>
